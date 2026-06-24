@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KASA REMIND — カサリマインド</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-logo">
+      <img src="./umbrella.svg" alt="傘" />
+      <div class="header-title">
+        <h1>KASA <em>REMIND</em></h1>
+        <p class="subtitle">カサリマインド ｜ 傘忘れ防止アプリ</p>
+      </div>
+    </div>
+    <p id="city-time">読み込み中...</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <main class="container">
+
+    <!-- ローディング -->
+    <div id="loading">天気データを取得中...</div>
+
+    <!-- 傘アドバイスカード -->
+    <div class="card" id="advice-card" style="display:none;">
+      <span id="advice-icon">☀️</span>
+      <p id="advice-title">今日は傘は不要です</p>
+      <p id="advice-desc">一日を快適にお過ごしください！</p>
+    </div>
+
+    <!-- 時間ごとの降水確率 -->
+    <div class="card" id="forecast-card" style="display:none;">
+      <p class="card-label">今日の降水確率（時間別）</p>
+      <div id="forecast-list"></div>
+    </div>
+
+    <!-- LINE通知 -->
+    <div class="card" id="line-section" style="display:none;">
+      <p class="card-label">LINE 通知プレビュー</p>
+      <div class="preview-bubble">
+        <div id="line-preview-text">（天気データ取得後に表示されます）</div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-green" id="btn-evening" onclick="sendEvening()">
+          📦　前日 22:00 アラートを今すぐ送る
+        </button>
+        <button class="btn btn-blue" id="btn-morning" onclick="sendMorning()">
+          🌂　朝 7:00 チェックを今すぐ送る
+        </button>
+        <button class="btn btn-orange" id="btn-reminder" onclick="sendReminder()">
+          🌤　雨上がりリマインダーを今すぐ送る
+        </button>
+      </div>
+    </div>
+
+    <!-- 通知時間の設定カード -->
+    <div class="card" id="settings-card" style="display:none;">
+      <div class="settings-header" onclick="toggleSettings()">
+        <p class="card-label" style="margin:0">通知時間の設定</p>
+        <span class="settings-arrow" id="settings-arrow">›</span>
+      </div>
+      <div class="settings-body" id="settings-body">
+        <div class="setting-row">
+          <label class="setting-label">前日アラート時刻</label>
+          <input type="time" id="set-evening" class="setting-input" value="22:00">
+        </div>
+        <div class="setting-row">
+          <label class="setting-label">朝チェック時刻</label>
+          <input type="time" id="set-morning" class="setting-input" value="07:00">
+        </div>
+        <div class="setting-row">
+          <label class="setting-label">リマインダー開始時刻</label>
+          <input type="time" id="set-rstart" class="setting-input" value="09:00">
+        </div>
+        <div class="setting-row">
+          <label class="setting-label">リマインダー終了時刻</label>
+          <input type="time" id="set-rend" class="setting-input" value="20:00">
+        </div>
+        <div class="setting-row">
+          <label class="setting-label">リマインダーの間隔</label>
+          <select id="set-interval" class="setting-select">
+            <option value="1">1時間おき</option>
+            <option value="2">2時間おき</option>
+            <option value="3" selected>3時間おき</option>
+            <option value="4">4時間おき</option>
+            <option value="6">6時間おき</option>
+          </select>
+        </div>
+        <div class="setting-row setting-row--slider">
+          <label class="setting-label">
+            雨と判定する降水確率　<span class="threshold-val" id="threshold-display">30%</span>
+          </label>
+          <input type="range" id="set-threshold" min="10" max="50" step="5" value="30" class="setting-range"
+                 oninput="document.getElementById('threshold-display').textContent = this.value + '%'">
+        </div>
+        <button class="btn btn-blue" onclick="applySettings()" style="margin-top:14px;width:100%">
+          設定を保存してスケジュールを更新
+        </button>
+      </div>
+    </div>
+
+    <!-- スケジュール状況 -->
+    <div class="card" id="schedule-card" style="display:none;">
+      <p class="card-label">自動チェックスケジュール</p>
+      <div id="schedule-list"></div>
+      <p class="schedule-note">このページを開いている間、自動チェックが動作します</p>
+    </div>
+
+  </main>
+
+  <!-- トースト -->
+  <div id="toast"></div>
+
+  <script src="./config.js"></script>
+  <script src="./settings.js"></script>
+  <script src="./app.js"></script>
+
+</body>
+</html>

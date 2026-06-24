@@ -1,0 +1,559 @@
+/* =============================================
+   style.css — KASA REMIND スタイル
+   カラー: 薄い水色 × ライトグレー × ホワイト
+   フォント: Cormorant Garamond（ロゴ） + Noto Sans JP（本文）
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+/* ── リセット ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── カラー変数 ── */
+:root {
+  --bg:         #EDF5F9;       /* ページ背景（薄い水色） */
+  --bg-soft:    #F4F8FB;       /* セクション背景 */
+  --card:       #FFFFFF;       /* カード背景 */
+  --border:     #D6E8F0;       /* 枠線 */
+  --accent:     #4BB8D4;       /* メインアクセント（傘の青） */
+  --accent-light: #C7E8F3;     /* 薄いアクセント */
+  --accent-dark:  #2E9BB8;     /* 濃いアクセント */
+  --text:       #2C3E50;       /* 本文テキスト */
+  --text-sub:   #7B9BAD;       /* サブテキスト */
+  --rain-bg:    #E4F3FA;       /* 雨の日カード背景 */
+  --clear-bg:   #FFF8EC;       /* 晴れの日カード背景 */
+  --clear-accent: #F5A623;     /* 晴れのオレンジ */
+  --shadow:     0 2px 16px rgba(75, 184, 212, 0.12);
+  --shadow-hover: 0 6px 24px rgba(75, 184, 212, 0.2);
+}
+
+/* ── ページ全体 ── */
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  background-color: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+  padding: 0 16px 40px;
+}
+
+/* ── ヘッダー ── */
+header {
+  text-align: center;
+  padding: 48px 20px 32px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.header-logo img {
+  width: 64px;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(75, 184, 212, 0.35));
+}
+
+.header-title {
+  text-align: left;
+}
+
+.header-title h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 2.6rem;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.header-title h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.header-title .subtitle {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--text-sub);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+#city-time {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+/* ── 区切り線 ── */
+.divider {
+  width: 40px;
+  height: 1px;
+  background: var(--accent-light);
+  margin: 20px auto;
+}
+
+/* ── レイアウト ── */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── カード共通 ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.card-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-label::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ── 傘アドバイスカード ── */
+#advice-card {
+  text-align: center;
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+#advice-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  opacity: 0.06;
+  background: var(--accent);
+  transition: background 0.5s ease;
+}
+
+#advice-card.rain {
+  background: var(--rain-bg);
+  border-color: #b3d9ea;
+}
+
+#advice-card.rain::before {
+  background: var(--accent);
+  opacity: 0.08;
+}
+
+#advice-card.clear {
+  background: var(--clear-bg);
+  border-color: #f0ddb0;
+}
+
+#advice-card.clear::before {
+  background: var(--clear-accent);
+  opacity: 0.08;
+}
+
+#advice-icon {
+  font-size: 3.2rem;
+  line-height: 1;
+  margin-bottom: 14px;
+  display: block;
+}
+
+#advice-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+#advice-desc {
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  line-height: 1.85;
+  white-space: pre-line;
+}
+
+/* ── 降水確率カード ── */
+#forecast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.forecast-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.forecast-time {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  width: 44px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.bar-wrap {
+  flex: 1;
+  background: var(--bg);
+  border-radius: 99px;
+  height: 22px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(90deg, var(--accent-light), var(--accent));
+}
+
+.bar.low {
+  background: linear-gradient(90deg, #e2ebef, #bcd4de);
+}
+
+.forecast-pop {
+  font-size: 0.8rem;
+  color: var(--text);
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── LINEセクション ── */
+.preview-bubble {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 0 14px 14px 14px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.preview-bubble::before {
+  content: 'LINE プレビュー';
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  display: block;
+  margin-bottom: 8px;
+}
+
+#line-preview-text {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--text);
+  white-space: pre-line;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn {
+  width: 100%;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-green {
+  background: #f0fbf5;
+  color: #1a7a42;
+  border: 1px solid #c2e8d0;
+}
+
+.btn-blue {
+  background: var(--rain-bg);
+  color: var(--accent-dark);
+  border: 1px solid var(--accent-light);
+}
+
+.btn-orange {
+  background: #fff7ed;
+  color: #b45309;
+  border: 1px solid #fde8c4;
+}
+
+/* ── スケジュールカード ── */
+#schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: var(--bg-soft);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.schedule-item.active {
+  border-color: var(--accent-light);
+}
+
+.schedule-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d1dde4;
+  flex-shrink: 0;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.schedule-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.schedule-dot.sent {
+  background: #4caf50;
+  box-shadow: 0 0 6px #4caf50;
+}
+
+.schedule-text {
+  flex: 1;
+  font-size: 0.83rem;
+  color: var(--text);
+}
+
+.schedule-time {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+}
+
+.schedule-note {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+/* ── ローディング ── */
+#loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── トースト ── */
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--text);
+  color: #fff;
+  padding: 11px 22px;
+  border-radius: 99px;
+  font-size: 0.82rem;
+  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.25);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+#toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── 設定カード ── */
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.settings-arrow {
+  font-size: 1.2rem;
+  color: var(--text-sub);
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.settings-body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.settings-body > *:first-child {
+  margin-top: 18px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.setting-row:last-of-type {
+  border-bottom: none;
+}
+
+.setting-label {
+  font-size: 0.82rem;
+  color: var(--text);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.threshold-val {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  min-width: 34px;
+  text-align: right;
+}
+
+.setting-input,
+.setting-select {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem;
+  color: var(--text);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.setting-input:focus,
+.setting-select:focus {
+  border-color: var(--accent);
+}
+
+.setting-input[type="time"] {
+  width: 112px;
+}
+
+.setting-select {
+  width: 130px;
+}
+
+.setting-row--slider {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.setting-range {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent) var(--pct, 40%), var(--bg) var(--pct, 40%));
+  outline: none;
+  cursor: pointer;
+}
+
+.setting-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px rgba(75, 184, 212, 0.4);
+  cursor: pointer;
+}
+
+.setting-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px rgba(75, 184, 212, 0.4);
+  cursor: pointer;
+}
+
+/* ── レスポンシブ ── */
+@media (max-width: 480px) {
+  .header-title h1 { font-size: 2rem; }
+  .header-logo img { width: 52px; }
+  .card { padding: 20px 18px; }
+}
